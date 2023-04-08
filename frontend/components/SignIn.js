@@ -64,7 +64,7 @@ export default function SignIn() {
           />
         </label>
         <label htmlFor="password">
-          Email
+          Password
           <input
             type="password"
             name="password"

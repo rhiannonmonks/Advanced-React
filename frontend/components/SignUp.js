@@ -1,7 +1,8 @@
+import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Form from './styles/Form';
 import useForm from '../lib/useForm';
-import { CURRENT_USER_QUERY } from './User';
+// import { CURRENT_USER_QUERY } from './User';
 import Error from './ErrorMessage';
 
 const SIGNUP_MUTATION = gql`
@@ -77,7 +78,7 @@ export default function SignUp() {
           />
         </label>
         <label htmlFor="password">
-          Email
+          Password
           <input
             type="password"
             name="password"
