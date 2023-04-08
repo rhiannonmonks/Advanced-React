@@ -31,13 +31,15 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-size: 1.5rem;
     line-height:2;
+
   }
   a {
     text-decoration: none;
-    color: var(--black);
+    color: green;
   }
   a:hover {
     text-decoration: underline;
+    color: yellow
   }
   button {
     font-family: 'radnika_next', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -48,9 +50,10 @@ const InnerStyles = styled.div`
   max-width: var(--maxWidth);
   margin: 0 auto;
   padding: 2rem;
+  color: purple;
 `;
 
-export default function Page({ children, cool }) {
+export default function Page({ children }) {
   return (
     <div>
       <GlobalStyles />
@@ -61,6 +64,5 @@ export default function Page({ children, cool }) {
 }
 
 Page.propTypes = {
-  cool: PropTypes.string,
   children: PropTypes.any,
 };
