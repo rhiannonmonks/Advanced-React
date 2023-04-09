@@ -1,14 +1,17 @@
+/* eslint-disable react/jsx-props-no-spreading */
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import Nav from './Nav';
 import Cart from './Cart';
+import Nav from './Nav';
+import Search from './Search';
 
 const Logo = styled.h1`
+  background: var(--red, red);
   font-size: 4rem;
   margin-left: 2rem;
   position: relative;
   z-index: 2;
-  background: red;
   transform: skew(-7deg);
   a {
     color: white;
@@ -18,7 +21,7 @@ const Logo = styled.h1`
   }
 `;
 
-const HeaderStyles = styled.header`
+const HeaderStyle = styled.header`
   .bar {
     border-bottom: 10px solid var(--black, black);
     display: grid;
@@ -26,29 +29,42 @@ const HeaderStyles = styled.header`
     justify-content: space-between;
     align-items: stretch;
   }
+
   .sub-bar {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr auto;
     border-bottom: 1px solid var(--black, black);
-    color: orange;
   }
 `;
 
-export default function Header() {
-  return (
-    <>
-      <HeaderStyles>
-        <div className="bar">
-          <Logo>
-            <Link href="/">Sick Fits</Link>
-          </Logo>
-          <Nav />
-        </div>
-        <div className="sub-bar">
-          <p>Search</p>
-        </div>
-        <Cart />
-      </HeaderStyles>
-    </>
-  );
+function ClientOnly({ children, ...delegated }) {
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
+
+  return <div {...delegated}>{children}</div>;
 }
+
+const Header = () => (
+  <HeaderStyle>
+    <div className="bar">
+      <Logo>
+        <Link href="/">Sick Fits</Link>
+      </Logo>
+      <Nav />
+    </div>
+    <div className="sub-bar">
+      <ClientOnly>
+        <Search />
+      </ClientOnly>
+    </div>
+    <Cart />
+  </HeaderStyle>
+);
+export default Header;
