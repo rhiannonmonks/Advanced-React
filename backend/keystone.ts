@@ -1,6 +1,7 @@
 import { config, createSchema } from '@keystone-next/keystone/schema';
 import { createAuth } from '@keystone-next/auth';
 import { withItemData, statelessSessions } from '@keystone-next/keystone/session';
+import { permissionsList } from './schemas/fields';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
@@ -73,7 +74,7 @@ export default withAuth(
     // TODO: Add session values here
     session: withItemData(statelessSessions(sessionConfig), {
       // GraphQL Query
-      User: 'id',
+      User: `id name email role { ${permissionsList.join('')}}`,
     }),
   })
 );
